@@ -1,3 +1,21 @@
+# file: ~/.gitignore_global
+.DS_Store
+.idea
+*.iml
+
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# Editor-based Rest Client
+.idea/httpRequests
+
 # Compiled class file
 *.class
 
