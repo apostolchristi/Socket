@@ -1,32 +1,29 @@
-# file: ~/.gitignore_global
-.DS_Store
-.idea
-*.iml
-
-
-# File-based project format
-*.iws
-
-# IntelliJ
-out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# Editor-based Rest Client
-.idea/httpRequests
-
 # Compiled class file
 *.class
 
+# IntelliJ
+*.iml
+.idea/
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# Maven
+log/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
 # Log file
 *.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
@@ -36,6 +33,7 @@ out/
 *.zip
 *.tar.gz
 *.rar
+pelagic-hope-246407-firebase-adminsdk-oqy81-fd9e571c27.json
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
