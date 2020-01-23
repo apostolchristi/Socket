@@ -7,7 +7,7 @@ public class ServerMain {
   public static void main(String[] args) throws IOException {
 
 	ThreadedEchoServer server = new ThreadedEchoServer();
-	server.start(8080);
+	server.start(9122);
 
   }
 }

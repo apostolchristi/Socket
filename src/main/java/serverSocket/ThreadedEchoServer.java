@@ -12,17 +12,18 @@ public class ThreadedEchoServer {
     private Thread thread;
 
     public void start(int port) throws IOException {
-        /** Establish server socket */
+        // Establish server socket
         try {
             serverSocket = new ServerSocket(port);
 
             int i = 1;
+
+            /**
+             * Wait for clients connection. Once someone connects to this port by sending the correct
+             * request over the network, this method returns a Socket object that represents the
+             * connection that was made.
+             */
             while (true) {
-                /**
-                 * Wait for clients connection. Once someone connects to this port by sending the correct
-                 * request over the network, this method returns a Socket object that represents the
-                 * connection that was made.
-                 */
                 incoming = serverSocket.accept();
                 System.out.println("Spawining " + i);
                 runnable = new ThreadedEchoHandler(incoming);

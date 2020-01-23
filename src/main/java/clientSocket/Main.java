@@ -17,7 +17,7 @@ import java.io.IOException;
 public class Main {
 
     public final static String HOST = "localhost";
-    public final static int PORT = 8080;
+    public final static int PORT = 9122;
 
     public static void main(String[] args) throws IOException {
 
