@@ -14,7 +14,6 @@ public class ThreadedEchoHandler implements Runnable {
 
   public ThreadedEchoHandler(Socket incoming) {
     this.incomingSocket = incoming;
-
   }
 
   @Override

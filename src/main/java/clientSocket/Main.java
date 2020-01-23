@@ -21,11 +21,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        ClientSystemInformation client = new ClientSystemInformation();
+    System.out.println(client.getUserInfo());
 
-        SocketTest6 socketTest6 = new SocketTest6();
-        socketTest6.establishConnection(HOST, PORT);
-        socketTest6.executeSocket();
-        socketTest6.closeConnection();
+//        SocketTest6 socketTest6 = new SocketTest6();
+//        socketTest6.establishConnection(HOST, PORT);
+//        socketTest6.executeSocket();
+//        socketTest6.closeConnection();
 
     }
 

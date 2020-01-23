@@ -11,8 +11,8 @@ public class SocketTest6 {
   private Scanner scanner;
   private InputStream input;
   private OutputStream output;
-  BufferedReader reader;
-  PrintWriter writer;
+  private BufferedReader reader;
+  private PrintWriter writer;
 
   public void establishConnection(String host, int port) {
 
@@ -42,8 +42,8 @@ public class SocketTest6 {
       if (scanner.hasNextLine()) {
         sendMessage(scanner.nextLine());
       } else if (response.equals("null")) {
-          System.out.println("Session is close, BYE");
-         System.err.close();
+        System.out.println("Session is close, BYE");
+        System.err.close();
       }
     }
   }

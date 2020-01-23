@@ -8,6 +8,5 @@ public class ServerMain {
 
 	ThreadedEchoServer server = new ThreadedEchoServer();
 	server.start(9122);
-
   }
 }
