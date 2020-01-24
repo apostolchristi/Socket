@@ -1,4 +1,4 @@
-package serverSocket;
+package serversocket;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ public class ServerMain {
 
   public static void main(String[] args) throws IOException {
 
-	ThreadedEchoServer server = new ThreadedEchoServer();
+	ThreadedServer server = new ThreadedServer();
 	server.start(9122);
   }
 }

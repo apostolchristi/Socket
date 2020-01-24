@@ -1,10 +1,10 @@
-package serverSocket;
+package serversocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ThreadedEchoServer {
+public class ThreadedServer {
 
   private ServerSocket serverSocket;
   private Socket incoming;
@@ -16,7 +16,7 @@ public class ThreadedEchoServer {
     try {
       serverSocket = new ServerSocket(port);
 
-      int i = 1;
+      int count = 1;
 
       /**
        * Wait for clients connection. Once someone connects to this port by sending the correct
@@ -25,11 +25,11 @@ public class ThreadedEchoServer {
        */
       while (true) {
         incoming = serverSocket.accept();
-        System.out.println("Spawining " + i);
-        runnable = new ThreadedEchoHandler(incoming);
+        System.out.println("Spawned. Connection nr: " + count);
+        runnable = new ServerService(incoming);
         thread = new Thread(runnable);
         thread.start();
-        i++;
+        count++;
       }
     } catch (IOException exception) {
       System.out.println("I/O error " + exception.getMessage());

@@ -1,4 +1,4 @@
-package clientSocket;
+package clientsocket.data;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -57,6 +57,6 @@ public class ClientSystemInformation {
   }
 
   public String getRights() {
-    return "Rights: " + rights;
+    return "Rights: " + rights  + "\n";
   }
 }
