@@ -5,6 +5,8 @@ import java.net.UnknownHostException;
 
 public class ClientSystemInformation {
 
+  private char delimiter = ';';
+
   private String hostname;
   private String userName;
   private String internalIP;
@@ -15,48 +17,49 @@ public class ClientSystemInformation {
 
   public String getUserInfo() {
     String information =
-        getHostname()
-            + getUser()
-            + getInternalIP()
-            + getProcessorIdentifier()
-            + getOsName()
-            + getOsArchitecture()
-            + getRights();
+              getHostname() + delimiter
+            + getUserName() + delimiter
+            + getInternalIP() + delimiter
+            + getProcessorIdentifier() + delimiter
+            + getOsName() + delimiter
+            + getOsArchitecture() + delimiter
+            + getRights() +delimiter;
     return information;
   }
 
   public static String getHostname() {
-    return "HostName: " + System.getProperty("user.home") + "\n";
+    return System.getProperty("user.home");
   }
 
-  public static String getUser() {
-    return "UserName: " + System.getProperty("user.name") + "\n";
+  public static String getUserName() {
+    return  System.getProperty("user.name");
   }
 
   public String getInternalIP() {
     String localIP = "";
     try {
       InetAddress localHost = InetAddress.getLocalHost();
+
       localIP = localHost.toString();
     } catch (UnknownHostException ex) {
       System.out.println("UnknownHostException error:  -->" + ex);
     }
-    return "InternalIP: " + localIP + "\n";
+    return  localIP;
   }
 
   public String getProcessorIdentifier() {
-    return "ProcessorIdentifier: " + System.getenv("PROCESSOR_IDENTIFIER") + "\n";
+    return System.getenv("PROCESSOR_IDENTIFIER");
   }
 
   public String getOsArchitecture() {
-    return "OsArchitecture: " + System.getProperty("os.arch") + "\n";
+    return  System.getProperty("os.arch");
   }
 
   public String getOsName() {
-    return "OsName: " + System.getProperty("os.name") + "\n";
+    return  System.getProperty("os.name");
   }
 
   public String getRights() {
-    return "Rights: " + rights  + "\n";
+    return  rights;
   }
 }

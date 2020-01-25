@@ -14,6 +14,10 @@ import java.toDo
 
 ##TODO
 ```
+25.01.2020
+```
+- [ ] close resources respecting logical flow
+```
 20.01.2020
 ```
 - [ ] background worker

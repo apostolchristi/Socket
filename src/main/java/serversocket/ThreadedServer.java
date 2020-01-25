@@ -15,6 +15,8 @@ public class ThreadedServer {
     // Establish server socket
     try {
       serverSocket = new ServerSocket(port);
+      System.out.println("Server started: " + serverSocket);
+      System.out.println("Waiting for a client ...");
 
       int count = 1;
 

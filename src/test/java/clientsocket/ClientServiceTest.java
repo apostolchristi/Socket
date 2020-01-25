@@ -6,11 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -19,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class ClientServiceTest {
 
-  ClientService clientService;
+  private ClientService clientService;
   private Scanner scanner;
 
   @Mock private Socket clientSocket;
@@ -48,6 +51,24 @@ public class ClientServiceTest {
 
     System.out.println("I work");
   }
+
+//  @Test
+//  public void repeatedTaskTimerSendClientSystemInfo_whenSchedulingRepeatedTask() {
+//    TimerTask repeatedTask = new TimerTask() {
+//      @Override
+//      public void run() {
+//        try {
+//          clientService.sendMessage(clientService.helloMessage());
+//        } catch (IOException e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    };
+//    Timer timer = new Timer("Timer");
+//    timer.scheduleAtFixedRate(repeatedTask, 10000L, 10000L);
+//
+//
+//  }
 
   @After
   public void tearDown() throws Exception {

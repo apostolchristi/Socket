@@ -16,7 +16,7 @@ public class ClientService {
   private int port;
 
   private Socket clientSocket;
-  private Scanner scanner;
+  private Scanner consol;
   private InputStream input;
   private OutputStream output;
   private BufferedReader reader;
@@ -28,12 +28,14 @@ public class ClientService {
     this.port = port;
     try {
       clientSocket = new Socket(host, port);
-      scanner = new Scanner(System.in);
+      consol = new Scanner(System.in);
+
       input = clientSocket.getInputStream();
       output = clientSocket.getOutputStream();
+
       reader = new BufferedReader(new InputStreamReader(input));
       writer = new PrintWriter(output, true);
-      //      sendTheMessage(helloMessage());
+      sendMessage(helloMessage());
     } catch (IOException ex) {
       System.out.println(
           "I/O error in: " + getClass().getEnclosingMethod().getName() + ex.getMessage());
@@ -43,18 +45,20 @@ public class ClientService {
 
   public void start()
       throws IOException, InterruptedException, ExecutionException, TimeoutException {
-
-    // repeatedTaskTimerSendClientSystemInfo()
+    repeatedTaskTimerSendClientSystemInfo();
 
     while (true) {
-      String response = readMessage();
-      System.out.println(response);
-      sendMessage(scanner.nextLine());
-      if (response.equals("null")) {
+      String incoming = readMessage();
+      System.out.println(incoming);
+
+      if (readMessage().equals("null")) {
         System.out.println("Session is close, BYE");
         closeConnection();
         break;
       }
+
+      sendMessage(consol.nextLine());
+
     }
   }
 
@@ -63,7 +67,6 @@ public class ClientService {
   }
 
   void sendMessage(String message) throws IOException {
-    System.out.println(message);
     writer.println(message);
   }
 
@@ -72,7 +75,7 @@ public class ClientService {
         new TimerTask() {
           @Override
           public void run() {
-            System.out.println("Task performed on " + new Date());
+            System.out.println("Task performed on ");
             try {
               sendMessage(helloMessage());
             } catch (IOException e) {
@@ -80,7 +83,7 @@ public class ClientService {
             }
           }
         };
-    Timer timer = new Timer();
+    Timer timer = new Timer("Timer");
     long delay = 10000L; // 1000 = 1 sec
     long period = 10000L;
     timer.scheduleAtFixedRate(repeatedTask, delay, period);
@@ -93,16 +96,26 @@ public class ClientService {
 
   public void closeConnection() {
     try {
-      clientSocket.close();
-      scanner.close();
-      input.close();
-      output.close();
-      reader.close();
       writer.close();
-    } catch (IOException exception) {
-      System.out.println(
-          "I/O error in " + getClass().getEnclosingMethod().getName() + exception.getMessage());
-      exception.getStackTrace();
+      consol.close();
+      clientSocket.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      output.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
