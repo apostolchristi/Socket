@@ -5,9 +5,9 @@ import java.net.UnknownHostException;
 
 public class ClientSystemInformation {
 
-  private char delimiter = ';';
+   public static final String DELIMITER = ";";
 
-  private String hostname;
+  private String userHomeDir;
   private String userName;
   private String internalIP;
   private String processorIdentifier;
@@ -15,19 +15,19 @@ public class ClientSystemInformation {
   private String osArchitecture;
   private String rights; /* TODO what kind of rights? */
 
-  public String getUserInfo() {
+  public String getAndBuildClientSystemInformation() {
     String information =
-              getHostname() + delimiter
-            + getUserName() + delimiter
-            + getInternalIP() + delimiter
-            + getProcessorIdentifier() + delimiter
-            + getOsName() + delimiter
-            + getOsArchitecture() + delimiter
-            + getRights() +delimiter;
+              getUserHomeDir() + DELIMITER
+            + getUserName() + DELIMITER
+            + getInternalIP() + DELIMITER
+            + getProcessorIdentifier() + DELIMITER
+            + getOsName() + DELIMITER
+            + getOsArchitecture() + DELIMITER
+            + getRights() + DELIMITER;
     return information;
   }
 
-  public static String getHostname() {
+  public static String getUserHomeDir() {
     return System.getProperty("user.home");
   }
 

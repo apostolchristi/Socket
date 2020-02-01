@@ -4,7 +4,6 @@ import clientsocket.data.ClientSystemInformation;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -91,7 +90,7 @@ public class ClientService {
 
   public String helloMessage() {
     clientSystemInformation = new ClientSystemInformation();
-    return clientSystemInformation.getUserInfo();
+    return clientSystemInformation.getAndBuildClientSystemInformation();
   }
 
   public void closeConnection() {
