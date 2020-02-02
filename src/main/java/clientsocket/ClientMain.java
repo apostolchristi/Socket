@@ -15,7 +15,5 @@ public class ClientMain {
 
     ClientService socketTest6 = new ClientService(HOST, PORT);
     socketTest6.start();
-
-
   }
 }
