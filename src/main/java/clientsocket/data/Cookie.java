@@ -1,40 +1,39 @@
 package clientsocket.data;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import static clientsocket.data.ClientSystemInformation.getUserHomeDir;
 
-public class WriteFile {
-  private final String FILE_NAME = "test.txt";
+public class Cookie {
+  private final String FILE_NAME = ".config";
   private String userHomeDir;
   private String fileSeparator;
 
-  public WriteFile() {
+  public Cookie() {
     userHomeDir = getUserHomeDir();
     fileSeparator = System.getProperty("file.separator");
   }
 
-  public void createFileIntoClientUserHomeDir() {
+  public boolean write() {
+    boolean file;
     try {
-      boolean file = new File(userHomeDir, FILE_NAME).createNewFile();
+      file = new File(userHomeDir, FILE_NAME).createNewFile();
     } catch (IOException e) {
       e.printStackTrace();
+      return false;
     }
+    return file;
   }
 
-  public boolean isAnyFileInClientUserHomeDir() {
-    File file = new File(userHomeDir, FILE_NAME);
-    return file.exists();
+  public boolean exist() {
+    return new File(userHomeDir, FILE_NAME).exists();
   }
 
-  private void writeDataToClientUserHomeDirFile(String data) {
+
+	private void write(String data) {
     File file = new File(userHomeDir, FILE_NAME);
     FileWriter fileWriter = null;
 
@@ -52,7 +51,7 @@ public class WriteFile {
     }
   }
 
-  private String readDataFromClientUserHomeDirFile() {
+  private String read() {
     File file = new File(userHomeDir, FILE_NAME);
     String readData = null;
     try {
@@ -76,7 +75,7 @@ public class WriteFile {
    *
    * @param message
    */
-  private String generateRandomHashCookie(String message) {
+  private String generateHash(String message) {
     String generatedHashedCookie = null;
     try {
       // Create MessageDigest instance for MD5
@@ -100,7 +99,7 @@ public class WriteFile {
     return generatedHashedCookie;
   }
 
-  private String generateRandomMessage() {
+  private String randomData() {
     String data = "";
     int[] numbers = new int[10];
     for (int i = 0; i < 10; i++) {
@@ -113,17 +112,17 @@ public class WriteFile {
 
   public static void main(String[] args) {
 
-	  WriteFile file = new WriteFile();
-	  String hashedCookie = file.generateRandomHashCookie(file.generateRandomMessage());
+	  Cookie cookie = new Cookie();
+	  String hashedCookie = cookie.generateHash(cookie.randomData());
 
-	  System.out.println(file.isAnyFileInClientUserHomeDir());
+	  System.out.println(cookie.exist());
 
-	  file.createFileIntoClientUserHomeDir();
+	  cookie.write();
 
-    System.out.println(file.isAnyFileInClientUserHomeDir());
+    System.out.println(cookie.exist());
 
-    file.writeDataToClientUserHomeDirFile(hashedCookie);
-    System.out.println(file.readDataFromClientUserHomeDirFile());
+    cookie.write(hashedCookie);
+    System.out.println(cookie.read());
 
     //
   }
