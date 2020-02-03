@@ -9,15 +9,23 @@ import static clientsocket.data.ClientSystemInformation.getUserHomeDir;
 
 public class Cookie {
   private final String FILE_NAME = ".config";
-  private String userHomeDir;
-  private String fileSeparator;
+  private String userHomeDir = getUserHomeDir();;
 
-  public Cookie() {
-    userHomeDir = getUserHomeDir();
-    fileSeparator = System.getProperty("file.separator");
+  public Object execute() {
+    String cookie;
+    if (exist()) {
+      cookie = read();
+      return cookie;
+    } else {
+      create();
+      String hashedCookie = generateHash(randomData());
+      write(hashedCookie);
+      cookie = read();
+      return cookie;
+    }
   }
 
-  public boolean write() {
+  private boolean create() {
     boolean file;
     try {
       file = new File(userHomeDir, FILE_NAME).createNewFile();
@@ -28,12 +36,11 @@ public class Cookie {
     return file;
   }
 
-  public boolean exist() {
+  private boolean exist() {
     return new File(userHomeDir, FILE_NAME).exists();
   }
 
-
-	private void write(String data) {
+  private void write(String data) {
     File file = new File(userHomeDir, FILE_NAME);
     FileWriter fileWriter = null;
 
@@ -62,19 +69,6 @@ public class Cookie {
     return readData;
   }
 
-  /**
-   * Breaking down Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1):
-   *
-   * <p>Adding 0x100 (which is 256 decimal) sets the 9th bit to 1, which guarantees the binary
-   * number representation of the result has exactly 9-bits. You could equivalently do & 0x100.
-   * After setting bit 8, the result from the toString() will be 9 chars long (of zeroes and ones).
-   * substring(1) effectively ignores bit 8 and outputs the lower 8 bits So what?
-   *
-   * <p>This code puts leading zeroes on values, so all values are exactly 8 binary characters.
-   * There's no way to make Integer.toString() alone do this.
-   *
-   * @param message
-   */
   private String generateHash(String message) {
     String generatedHashedCookie = null;
     try {
@@ -88,6 +82,8 @@ public class Cookie {
       // Convert it to hexadecimal format
       StringBuilder stringBuilder = new StringBuilder();
       for (int i = 0; i < bytes.length; i++) {
+        // see the explanation
+        // https://stackoverflow.com/questions/36491665/byte-to-integer-and-then-to-string-conversion-in-java
         stringBuilder.append(Integer.toString((bytes[i & 0xff]) + 0x100, 16).substring(1));
       }
       // Get complete hashed password in hex format
@@ -95,7 +91,6 @@ public class Cookie {
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
-    System.out.println(generatedHashedCookie);
     return generatedHashedCookie;
   }
 
@@ -106,24 +101,6 @@ public class Cookie {
       numbers[i] = (int) (Math.random() * 10000 + 1);
       data += String.valueOf(numbers[i]);
     }
-    System.out.println(data);
     return data;
-  }
-
-  public static void main(String[] args) {
-
-	  Cookie cookie = new Cookie();
-	  String hashedCookie = cookie.generateHash(cookie.randomData());
-
-	  System.out.println(cookie.exist());
-
-	  cookie.write();
-
-    System.out.println(cookie.exist());
-
-    cookie.write(hashedCookie);
-    System.out.println(cookie.read());
-
-    //
   }
 }

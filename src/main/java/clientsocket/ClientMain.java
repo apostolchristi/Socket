@@ -1,7 +1,6 @@
 package clientsocket;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -14,6 +13,6 @@ public class ClientMain {
       throws IOException, InterruptedException, ExecutionException, TimeoutException {
 
     ClientService socketTest6 = new ClientService(HOST, PORT);
-    socketTest6.start();
+    socketTest6.execute();
   }
 }

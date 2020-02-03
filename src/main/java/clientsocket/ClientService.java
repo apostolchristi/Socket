@@ -1,6 +1,7 @@
 package clientsocket;
 
 import clientsocket.data.ClientSystemInformation;
+import clientsocket.data.Cookie;
 
 import java.io.*;
 import java.net.Socket;
@@ -21,10 +22,12 @@ public class ClientService {
   private BufferedReader reader;
   private PrintWriter writer;
   private ClientSystemInformation clientSystemInformation;
+  private Cookie cookie;
 
   public ClientService(String host, int port) {
     this.host = host;
     this.port = port;
+    cookie = new Cookie();
     try {
       clientSocket = new Socket(host, port);
       consol = new Scanner(System.in);
@@ -42,8 +45,11 @@ public class ClientService {
     }
   }
 
-  public void start()
-      throws IOException, InterruptedException, ExecutionException, TimeoutException {
+  public void execute() throws IOException {
+
+    Object clientCookieID = cookie.execute();
+    System.out.println(clientCookieID);
+
     repeatedTaskTimerSendClientSystemInfo();
 
     while (true) {
